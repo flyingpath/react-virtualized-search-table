@@ -1,0 +1,80 @@
+.main {
+    min-width: 700px;
+    height   : 100%;
+}
+
+.table {
+    :global(.ReactVirtualized__Table__Grid) {
+        border: 1px solid #707070;
+        margin-top: 10px;
+        border-radius: 5px;
+        color: #545353;
+        box-shadow: 3px 3px 8px 0 rgba(0, 0, 0, 0.16);
+    }
+    :global(.ReactVirtualized__Table__Grid::-webkit-scrollbar) {
+        width: 4px;
+        height: 4px;
+    }
+    :global(.ReactVirtualized__Table__Grid::-webkit-scrollbar-track) {
+        background: none;
+    }
+    :global(.ReactVirtualized__Table__Grid::-webkit-scrollbar-thumb) {
+        background: #4792d2;
+    }
+    :global(.ReactVirtualized__Table__Grid::-webkit-scrollbar-thumb:hover ) {
+        background: #2196f37d;
+    }
+    :global(.ReactVirtualized__Table__rowColumn) {
+        min-width: 45px;
+    }
+    :global(.ReactVirtualized__Table__row) {
+        border-bottom: 1px solid #d4d4d482;
+    }
+}
+
+.tableTitle {
+    text-align: center;
+    padding: 10px;
+    background-image: linear-gradient(266deg, rgba(16, 121, 204, 0.73), #1768a8);
+    color: white;
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.headerRow {
+    display       : flex;
+    flex-direction: row;
+    align-items   : baseline;
+    background    : #f5f5f5;
+    /* border-radius : 6px; */
+    border        : 1px solid #707070;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.16);
+}
+
+.headerTd {
+    padding: 5px;
+    color  : #707070;
+    height : 100%;
+    box-sizing: border-box;
+
+    :global(.input-parent) {
+        padding-left: 5px;
+    }
+    :global(input) {
+        max-width : 40px;
+        box-sizing: border-box;
+        background: none;
+        border    : none;
+        border    : 1px solid #dddddd;
+        color     : #707070;
+        padding   : 2px 4px;
+    }
+    :global(input:focus) {
+        outline: none;
+    }
+    :global(.label) {
+        margin: 5px 0px;
+        padding: 0px 5px;
+        cursor: pointer;
+    }
+}

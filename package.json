@@ -1,0 +1,54 @@
+{
+  "name": "react-tooltip-tao",
+  "version": "1.0.0",
+  "private": false,
+  "main": "publish/dist/ReactTooltip.js",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "dependencies": {
+    "array-move": "^2.2.0",
+    "moment": "^2.24.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts": "3.2.0",
+    "react-sortable-hoc": "^1.10.1",
+    "react-virtualized": "^9.21.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "trans": "babel src/components --out-dir publish/dist"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.0",
+    "@babel/plugin-syntax-class-properties": "^7.2.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "node-sass": "^4.13.0"
+  }
+}

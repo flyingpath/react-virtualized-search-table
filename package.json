@@ -1,8 +1,8 @@
 {
-  "name": "react-tooltip-tao",
+  "name": "react-virtualize-search-table",
   "version": "1.0.0",
   "private": false,
-  "main": "publish/dist/ReactTooltip.js",
+  "main": "publish/index.js",
   "babel": {
     "presets": [
       "@babel/preset-env",
@@ -15,6 +15,7 @@
   "dependencies": {
     "array-move": "^2.2.0",
     "moment": "^2.24.0",
+    "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0",
@@ -26,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "trans": "babel src/components --out-dir publish/dist"
+    "trans": "babel src/components --out-dir publish"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.0",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
     "@babel/plugin-syntax-class-properties": "^7.2.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",

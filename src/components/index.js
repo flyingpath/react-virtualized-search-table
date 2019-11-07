@@ -207,8 +207,10 @@ class ReactVirtualizedSearchTable extends React.Component {
             }
         } )
 
+        const minWidth = columns.length * 80
+
         return (
-            <div className = { style.main } >
+            <div className = { style.main } style = {{ minWidth: minWidth }} >
                 <AutoSizer className = { style.autoSizer } style={ { height: '100%', width: '100%' } } >
                 {({ height, width }) => {
                     return (
@@ -222,7 +224,7 @@ class ReactVirtualizedSearchTable extends React.Component {
                                 width       = { width - 2 }
                                 height      = { height - 100 }
                                 headerHeight= { 70 }
-                                rowHeight   = { 40 }
+                                rowHeight   = { this.props.rowHeight || 60 }
                                 rowCount    = { filterdData.length }
                                 rowRenderer = { this.rowRenderer }
                                 rowGetter   = { ({ index }) => filterdData[index] }
@@ -280,6 +282,7 @@ ReactVirtualizedSearchTable.propTypes = {
             })
         )
     ).isRequired,
+    rowHeight: PropTypes.number
 }
 
 export default ReactVirtualizedSearchTable  

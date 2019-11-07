@@ -11,6 +11,8 @@ demo: https://flyingpath.github.io/react-virtualize-search-table
 | title | element or string  |    | table title  |
 | columns | array  |  Y  | Array of data object with dataKey and label [Example](#Columns)  |
 | data | array  |  Y  | Array of data object with element, searchKey and orderKey. [Example](#dataExample) 
+| rowHeight | number  |  N  | Height of row, default: 60 
+
 
 ### <a name="Columns"></a>columns
 

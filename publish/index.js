@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _arrayMove = _interopRequireDefault(require("array-move"));
 
 var _reactVirtualized = require("react-virtualized");
@@ -68,17 +70,17 @@ var SortableHeaderRowRenderer = (0, _reactSortableHoc.sortableContainer)(functio
   }));
 });
 
-var VirtulizeTableSearch =
+var ReactVirtualizedSearchTable =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(VirtulizeTableSearch, _React$Component);
+  _inherits(ReactVirtualizedSearchTable, _React$Component);
 
-  function VirtulizeTableSearch(_props) {
+  function ReactVirtualizedSearchTable(_props) {
     var _this;
 
-    _classCallCheck(this, VirtulizeTableSearch);
+    _classCallCheck(this, ReactVirtualizedSearchTable);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(VirtulizeTableSearch).call(this, _props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ReactVirtualizedSearchTable).call(this, _props));
 
     _defineProperty(_assertThisInitialized(_this), "onSortEnd", function (_ref3) {
       var oldIndex = _ref3.oldIndex,
@@ -224,7 +226,7 @@ function (_React$Component) {
     return _this;
   }
 
-  _createClass(VirtulizeTableSearch, [{
+  _createClass(ReactVirtualizedSearchTable, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       if (prevProps.data !== this.props.data || prevProps.columns !== this.props.columns) {
@@ -261,7 +263,7 @@ function (_React$Component) {
       }, function (_ref5) {
         var height = _ref5.height,
             width = _ref5.width;
-        return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("div", {
+        return _react.default.createElement(_react.default.Fragment, null, _this2.props.title && _react.default.createElement("div", {
           className: _styleModule.default.tableTitle
         }, _this2.props.title), _react.default.createElement(_reactVirtualized.Table, {
           width: width - 2,
@@ -290,182 +292,20 @@ function (_React$Component) {
     }
   }]);
 
-  return VirtulizeTableSearch;
+  return ReactVirtualizedSearchTable;
 }(_react.default.Component);
 
-VirtulizeTableSearch.defaultProps = {
-  title: '門診紀錄列表',
-  columns: [{
-    dataKey: 'name',
-    label: 'name'
-  }, {
-    dataKey: 'description',
-    label: 'description'
-  }, {
-    dataKey: 'danger',
-    label: '危機值危機值危機值危'
-  }],
-  data: [{
-    name: {
-      element: _react.default.createElement("div", null, "1234"),
-      searchKey: '12343',
-      orderKey: 'Brian Vaughn1'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "1234"),
-      searchKey: '12343',
-      orderKey: 'Software engineer'
-    },
-    danger: {
-      element: _react.default.createElement("div", null, "o"),
-      searchKey: true,
-      orderKey: 1
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null, "12343"),
-      searchKey: '1234',
-      orderKey: 'Brian Vaughn2'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "1234"),
-      searchKey: '1234',
-      orderKey: 'Software engineer2'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null, "Brian Vaughn3"),
-      searchKey: 'Brian Vaughn',
-      orderKey: 'Brian Vaughn'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "xxxxx"),
-      searchKey: 'Software engineer3',
-      orderKey: 'Software engineer3'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null, "Describe555"),
-      searchKey: 'Describe555',
-      orderKey: 'Brian Vaughn3'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "xxxxx"),
-      searchKey: '555',
-      orderKey: 'Software engineer3'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null),
-      searchKey: 'Brian Vaughn3',
-      orderKey: 'Brian Vaughn3'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "xxxxx"),
-      searchKey: 'Software engineer3',
-      orderKey: 'Software engineer3'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null),
-      searchKey: 'Brian Vaughn3',
-      orderKey: 'Brian Vaughn3'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "xxxxx"),
-      searchKey: 'Software engineer3',
-      orderKey: 'Software engineer3'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null),
-      searchKey: 'Brian Vaughn3',
-      orderKey: 'Brian Vaughn3'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "xxxxx"),
-      searchKey: 'Software engineer3',
-      orderKey: 'Software engineer3'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null),
-      searchKey: 'Brian Vaughn3',
-      orderKey: 'Brian Vaughn3'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "xxxxx"),
-      searchKey: 'Software engineer3',
-      orderKey: 'Software engineer3'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null),
-      searchKey: 'Brian Vaughn3',
-      orderKey: 'Brian Vaughn3'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "xxxxx"),
-      searchKey: 'Software engineer3',
-      orderKey: 'Software engineer3'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }, {
-    name: {
-      element: _react.default.createElement("div", null),
-      searchKey: 'Brian Vaughn3',
-      orderKey: 'Brian Vaughn3'
-    },
-    description: {
-      element: _react.default.createElement("div", null, "xxxxx"),
-      searchKey: 'Software engineer3',
-      orderKey: 'Software engineer3'
-    },
-    danger: {
-      element: _react.default.createElement("div", null),
-      searchKey: false,
-      orderKey: 0
-    }
-  }]
+ReactVirtualizedSearchTable.propTypes = {
+  title: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.element]),
+  columns: _propTypes.default.arrayOf(_propTypes.default.shape({
+    dataKey: _propTypes.default.string.isRequired,
+    label: _propTypes.default.string.isRequired
+  })).isRequired,
+  data: _propTypes.default.arrayOf(_propTypes.default.objectOf(_propTypes.default.shape({
+    element: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.element]).isRequired,
+    searchKey: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.bool]).isRequired,
+    orderKey: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool]).isRequired
+  }))).isRequired
 };
-var _default = VirtulizeTableSearch;
+var _default = ReactVirtualizedSearchTable;
 exports.default = _default;

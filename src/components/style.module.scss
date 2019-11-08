@@ -77,3 +77,9 @@
         cursor: pointer;
     }
 }
+
+.tableRow {
+    &:hover {
+        background: #0055980a;
+    }
+}

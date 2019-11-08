@@ -186,7 +186,7 @@ function (_React$Component) {
       delete params.style.height;
       delete params.className;
       return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(SortableHeaderRowRenderer, _extends({}, params, {
-        className: _styleModule.default.headerRow + ' header-row',
+        className: _styleModule.default.headerRow + (_this.props.headerClassName ? ' ' + _this.props.headerClassName : ''),
         axis: "x",
         lockAxis: "x",
         onSortEnd: _this.onSortEnd,
@@ -211,6 +211,12 @@ function (_React$Component) {
       var columns = _this.rowColumnMaker(props);
 
       props.columns = columns;
+      props.className += ' ' + _styleModule.default.tableRow;
+
+      if (_this.props.rowClassName) {
+        props.className += ' ' + _this.props.rowClassName;
+      }
+
       return (0, _reactVirtualized.defaultTableRowRenderer)(props);
     });
 
@@ -252,8 +258,12 @@ function (_React$Component) {
           widthAverage = true;
         }
       });
+      var minWidth = columns.length * 80;
       return _react.default.createElement("div", {
-        className: _styleModule.default.main
+        className: _styleModule.default.main,
+        style: {
+          minWidth: minWidth
+        }
       }, _react.default.createElement(_reactVirtualized.AutoSizer, {
         className: _styleModule.default.autoSizer,
         style: {
@@ -264,12 +274,12 @@ function (_React$Component) {
         var height = _ref5.height,
             width = _ref5.width;
         return _react.default.createElement(_react.default.Fragment, null, _this2.props.title && _react.default.createElement("div", {
-          className: _styleModule.default.tableTitle
+          className: _typeof(_this2.props.title) === 'object' ? '' : _styleModule.default.tableTitle
         }, _this2.props.title), _react.default.createElement(_reactVirtualized.Table, {
           width: width - 2,
           height: height - 100,
           headerHeight: 70,
-          rowHeight: 40,
+          rowHeight: _this2.props.rowHeight || 60,
           rowCount: filterdData.length,
           rowRenderer: _this2.rowRenderer,
           rowGetter: function rowGetter(_ref6) {
@@ -277,10 +287,11 @@ function (_React$Component) {
             return filterdData[index];
           },
           headerRowRenderer: _this2.renderHeaderRow,
-          className: _styleModule.default.table,
+          className: _styleModule.default.table + (_this2.props.tableClassName ? " ".concat(_this2.props.tableClassName) : ''),
           style: {
             borderRadius: '5px'
-          }
+          },
+          onRowClick: _this2.props.onRowClick
         }, columns.map(function (d, idx) {
           return _react.default.createElement(_reactVirtualized.Column, _extends({}, d, {
             key: idx,
@@ -305,7 +316,12 @@ ReactVirtualizedSearchTable.propTypes = {
     element: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.element]).isRequired,
     searchKey: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.bool]).isRequired,
     orderKey: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool]).isRequired
-  }))).isRequired
+  }))).isRequired,
+  rowHeight: _propTypes.default.number,
+  onRowClick: _propTypes.default.func,
+  rowClassName: _propTypes.default.string,
+  headerClassName: _propTypes.default.string,
+  tableClassName: _propTypes.default.string
 };
 var _default = ReactVirtualizedSearchTable;
 exports.default = _default;

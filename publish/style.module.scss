@@ -1,5 +1,4 @@
 .main {
-    min-width: 700px;
     height   : 100%;
 }
 
@@ -76,5 +75,11 @@
         margin: 5px 0px;
         padding: 0px 5px;
         cursor: pointer;
+    }
+}
+
+.tableRow {
+    &:hover {
+        background: #0055980a;
     }
 }

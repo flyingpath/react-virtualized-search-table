@@ -6,13 +6,16 @@ Table powered by react-virtualized table with search and sort.
 demo: https://flyingpath.github.io/react-virtualize-search-table
 
 ### Prop Types
-| Property | Type   | Required? | Description|
-| :------- | :----- | :-------: | :--------- |
-| title | element or string  |    | table title  |
-| columns | array  |  Y  | Array of data object with dataKey and label [Example](#Columns)  |
-| data | array  |  Y  | Array of data object with element, searchKey and orderKey. [Example](#dataExample) 
-| rowHeight | number  |  N  | Height of row, default: 60 
-
+| Property                | Type              | Required? | Description                                                                        |
+| :---------------------- | :---------------- | :-------: | :--------------------------------------------------------------------------------- |
+| title                   | element or string |           | table title                                                                        |
+| columns                 | array             |     Y     | Array of data object with dataKey and label [Example](#Columns)                    |
+| data                    | array             |     Y     | Array of data object with element, searchKey and orderKey. [Example](#dataExample) |
+| rowHeight               | number            |     N     | Height of row, default: 60                                                         |
+| onRowClick              | function          |     N     |                                                                                    |
+| rowClassName            | string            |     N     |                                                                                    |
+| headerClassName         | string            |     N     |                                                                                    |
+| rowHeitableClassNameght | string            |     N     |                                                                                    |
 
 ### <a name="Columns"></a>columns
 

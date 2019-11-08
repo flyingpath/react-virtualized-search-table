@@ -156,7 +156,7 @@ class ReactVirtualizedSearchTable extends React.Component {
             <React.Fragment >
                 <SortableHeaderRowRenderer
                     {...params}
-                    className = {style.headerRow + ' header-row'}
+                    className = {style.headerRow + (this.props.headerClassName? (' ' + this.props.headerClassName): '' )  }
                     axis      = "x"
                     lockAxis  = "x"
                     onSortEnd = {this.onSortEnd}
@@ -190,6 +190,11 @@ class ReactVirtualizedSearchTable extends React.Component {
     rowRenderer = (props) => {
         const columns = this.rowColumnMaker( props )
         props.columns = columns
+        props.className += (' ' + style.tableRow)
+
+        if(this.props.rowClassName){
+            props.className += (' ' + this.props.rowClassName)
+        }
 
         return defaultTableRowRenderer(props)
     }
@@ -216,7 +221,7 @@ class ReactVirtualizedSearchTable extends React.Component {
                     return (
                         <React.Fragment>
                             { this.props.title &&
-                                <div className = { style.tableTitle }  >
+                                <div className = { typeof this.props.title === 'object'? '' : style.tableTitle }  >
                                     {this.props.title}
                                 </div>
                             } 
@@ -229,11 +234,12 @@ class ReactVirtualizedSearchTable extends React.Component {
                                 rowRenderer = { this.rowRenderer }
                                 rowGetter   = { ({ index }) => filterdData[index] }
                                 headerRowRenderer = { this.renderHeaderRow }
-                                className   = { style.table }
+                                className   = { style.table + ( this.props.tableClassName? ` ${this.props.tableClassName}`: '' ) }
                                 style       = {{
                                     borderRadius: '5px'
                                 }}
-                            >
+                                onRowClick  = { this.props.onRowClick }
+                            > 
                                 {   columns.map( (d, idx) => (
                                     <Column
                                         { ...d } 
@@ -282,7 +288,11 @@ ReactVirtualizedSearchTable.propTypes = {
             })
         )
     ).isRequired,
-    rowHeight: PropTypes.number
+    rowHeight: PropTypes.number,
+    onRowClick: PropTypes.func,
+    rowClassName: PropTypes.string,
+    headerClassName: PropTypes.string,
+    tableClassName: PropTypes.string,
 }
 
 export default ReactVirtualizedSearchTable  

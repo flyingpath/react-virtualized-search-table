@@ -25,9 +25,9 @@ class App extends React.Component {
             data: [
                 { 
                     name  : {
-                        element     : ( <div>1234</div> ),
-                        searchKey   : '12343',
-                        orderKey    : 'Brian Vaughn1'
+                        element     : ( <div>20190423</div> ),
+                        searchKey   : '20190423',
+                        orderKey    : '20190423'
                     }, 
                     description: {
                         element     : ( <div>1234</div> ),
@@ -199,7 +199,7 @@ class App extends React.Component {
 
         return (
             <div style={{ height: '100%' }}>
-                <ReactVirtulizeSearchTable {...demo} />
+                <ReactVirtulizeSearchTable {...demo} tableClassName='test' />
             </div>
         )
     }

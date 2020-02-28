@@ -18,9 +18,9 @@ class App extends React.Component {
         const demo =     {
             title: '門診紀錄列表',
             columns:  [
-                { dataKey: 'name',        label: 'name' },
-                { dataKey: 'description', label: 'description' },
-                { dataKey: 'danger',      label: '危機值危機值危機值危' },
+                { dataKey: 'name',        width: 100, label: 'name' },
+                { dataKey: 'description', width: 100, label: 'description' },
+                { dataKey: 'danger',      width: 200, label: '危機值危機值危機值危' },
             ],
             data: [
                 { 

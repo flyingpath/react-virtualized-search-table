@@ -1,15 +1,15 @@
-react-virtualize-search-table
+react-virtualized-search-table
 ===
 
 Table powered by react-virtualized table with search and sort.
 
-demo: https://flyingpath.github.io/react-virtualize-search-table
+demo: https://flyingpath.github.io/react-virtualized-search-table
 
 ### Prop Types
 | Property                | Type              | Required? | Description                                                                        |
 | :---------------------- | :---------------- | :-------: | :--------------------------------------------------------------------------------- |
 | title                   | element or string |           | table title                                                                        |
-| columns                 | array             |     Y     | Array of data object with dataKey and label [Example](#Columns)                    |
+| columns                 | array             |     Y     | Array of data object with dataKey, width and label [Example](#Columns)                    |
 | data                    | array             |     Y     | Array of data object with element, searchKey and orderKey. [Example](#dataExample) |
 | rowHeight               | number            |     N     | Height of row, default: 60                                                         |
 | onRowClick              | function          |     N     |                                                                                    |
@@ -22,15 +22,18 @@ demo: https://flyingpath.github.io/react-virtualize-search-table
 ```
 [
     { 
-        dataKey: 'name',        
+        dataKey: 'name',
+        width: 100,
         label: 'name' 
     },
     { 
         dataKey: 'description', 
+        width: 100,
         label: 'description' 
     },
     { 
-        dataKey: 'danger',      
+        dataKey: 'danger', 
+        width: 200,     
         label: '危機值危機值危機值危' 
     }
 ]

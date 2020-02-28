@@ -1,5 +1,5 @@
 {
-  "name": "react-virtualize-search-table",
+  "name": "react-virtualized-search-table",
   "version": "1.0.2",
   "private": false,
   "main": "publish/index.js",

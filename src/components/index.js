@@ -14,6 +14,8 @@ const SortableHeader = sortableElement(({children, ...props}) =>
     React.cloneElement(children, props)
 )
 
+let filterDict = {} // 目前搜尋狀態
+
 const SortableHeaderRowRenderer = sortableContainer(
     ({className, columns, style}) => (
         <div className={className} role="row" style={style} >
@@ -30,8 +32,7 @@ const ReactVirtualizedSearchTable = (props) => {
     const [ data,    dataSet    ]           = React.useState(props.data)
     const [ filteredData, filteredDataSet ] = React.useState(props.data)
     
-    let filterDict = {} // 目前搜尋狀態
-    let orderDict  = {} // 目前排序狀態
+    const [ orderDict, orderDictSet ] = React.useState({})
 
     React.useEffect( ()=>{
         columnsSet(props.columns)
@@ -80,25 +81,34 @@ const ReactVirtualizedSearchTable = (props) => {
     const orderData = (key) => {
         return ()=>{
             let newData = filteredData.slice()
+            let newOreder = Object.assign( {}, orderDict )
 
-            if ( !orderDict[ key ] ) {
-                orderDict[ key ] = 'desc'
+            if ( !newOreder[ key ] ) {
+                newOreder[ key ] = 'desc'
             } else {
-                if( orderDict[ key ] === 'desc' ) {
-                    orderDict[ key ] = 'asc'
+                if( newOreder[ key ] === 'desc' ) {
+                    newOreder[ key ] = 'asc'
                 } else {
-                    orderDict[ key ] = 'desc'
+                    newOreder[ key ] = 'desc'
                 }
             }
-    
-            newData = _.orderBy( newData, [ (d)=> (d[ key ].orderKey) ], [ orderDict[ key ] ] )
 
+            // else if( newOreder[ key ] === 'asc' ) {
+            //     delete newOreder[ key ]
+            // } else {
+            //     delete newOreder[ key ]
+            // }
+    
+            newData = _.orderBy( newData, [ (d)=> (d[ key ].orderKey) ], [ newOreder[ key ] ] )
+
+            orderDictSet(newOreder)
             filteredDataSet(newData)
         }
     }
 
     // 加工 header 以增加搜尋功能
     const headerColumnMaker = (param) => {
+        
         return (
             param.columns.map( (d, idx) => {
                 const column = columns[ idx ]
@@ -110,13 +120,21 @@ const ReactVirtualizedSearchTable = (props) => {
                 delete newProps.title
                 delete newProps.children
 
+                let order = ''
+                if (orderDict[ column.dataKey ] === 'asc'){
+                    order = '▾'
+                }
+                if (orderDict[ column.dataKey ] === 'desc'){
+                    order = '▴'
+                } 
+
                 return ( 
                     <div { ...newProps } key = {idx} className = { style.headerTd + ' header-td'}>
                         <div className = 'input-parent' >
                             <input onChange = { onChangeSearchFilter( column.dataKey ) } />
                         </div>
                         <div className='label' onClick = { orderData( column.dataKey ) } >
-                            { column.label }
+                            { column.label + order } 
                         </div>
                     </div> 
                 )

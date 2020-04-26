@@ -24,42 +24,29 @@ const SortableHeaderRowRenderer = sortableContainer(
     )
 )
 
-class ReactVirtualizedSearchTable extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            columns: this.props.columns,
-            data   : this.props.data,
-            filterdData: this.props.data
-        }
+const ReactVirtualizedSearchTable = (props) => {
+    
+    const [ columns, columnsSet ]           = React.useState(props.columns)
+    const [ data,    dataSet    ]           = React.useState(props.data)
+    const [ filteredData, filteredDataSet ] = React.useState(props.data)
+    
+    let filterDict = {} // 目前搜尋狀態
+    let orderDict  = {} // 目前排序狀態
 
-        this.filterDict = {} // 目前搜尋狀態
-        this.orderDict  = {}  // 目前排序狀態
+    React.useEffect( ()=>{
+        columnsSet(props.columns)
+        dataSet(props.data)
+        filteredDataSet(props.data)
+    }, [ props.data, props.columns ] )
+
+    const onSortEnd = ({oldIndex, newIndex}) => {
+        columnsSet( arrayMove(columns, oldIndex, newIndex) )
     }
 
+    const filterData = () => {
+        let newData = data.slice()
 
-    componentDidUpdate(prevProps) {
-        if ( prevProps.data !== this.props.data || prevProps.columns !== this.props.columns ) {
-            if ( this.props.data !== this.state.data || this.props.columns !== this.state.columns ) {
-                this.setState({
-                    columns: this.props.columns,
-                    data: this.props.data,
-                    filterdData: this.props.data
-                })
-            }
-        }
-    }
-
-    onSortEnd = ({oldIndex, newIndex}) => {
-        this.setState(({columns}) => ({
-            columns: arrayMove(columns, oldIndex, newIndex)
-        }))
-    }
-
-    filterData = () => {
-        let newData = this.state.data
-
-        _.forIn( this.filterDict, ( value, key ) => {
+        _.forIn( filterDict, ( value, key ) => {
             newData = _.filter( newData, d => {
                 const searchString = d[ key ].searchKey
                 if ( value === '' ){
@@ -79,48 +66,42 @@ class ReactVirtualizedSearchTable extends React.Component {
                 }
             } )
         } )
-        this.setState( { 
-            filterdData: newData
-        } )
+        filteredDataSet(newData)
     }
 
-    onChangeSearchFilter = ( key ) => {
-
+    const onChangeSearchFilter = ( key ) => {
         return (e) => {
-            
             const value = e.target.value 
-            this.filterDict[ key ] = value
-            this.filterData()
+            filterDict[ key ] = value
+            filterData()
         }
     }
 
-    orderData = (key) => {
+    const orderData = (key) => {
         return ()=>{
-            let newData = this.state.filterdData.slice()
+            let newData = filteredData.slice()
 
-            if ( !this.orderDict[ key ] ) {
-                this.orderDict[ key ] = 'desc'
+            if ( !orderDict[ key ] ) {
+                orderDict[ key ] = 'desc'
             } else {
-                if( this.orderDict[ key ] === 'desc' ) {
-                    this.orderDict[ key ] = 'asc'
+                if( orderDict[ key ] === 'desc' ) {
+                    orderDict[ key ] = 'asc'
                 } else {
-                    this.orderDict[ key ] = 'desc'
+                    orderDict[ key ] = 'desc'
                 }
             }
     
-            newData = _.orderBy( newData, [ (d)=> (d[ key ].orderKey) ], [ this.orderDict[ key ] ] )
+            newData = _.orderBy( newData, [ (d)=> (d[ key ].orderKey) ], [ orderDict[ key ] ] )
 
-            this.setState( { 
-                filterdData: newData
-            } )
+            filteredDataSet(newData)
         }
     }
 
     // 加工 header 以增加搜尋功能
-    headerColumnMaker = (props) => {
+    const headerColumnMaker = (param) => {
         return (
-            props.columns.map( (d, idx) => {
-                const column = this.state.columns[ idx ]
+            param.columns.map( (d, idx) => {
+                const column = columns[ idx ]
 
                 let newProps = Object.assign( {}, d.props )
 
@@ -132,9 +113,9 @@ class ReactVirtualizedSearchTable extends React.Component {
                 return ( 
                     <div { ...newProps } key = {idx} className = { style.headerTd + ' header-td'}>
                         <div className = 'input-parent' >
-                            <input onChange = { this.onChangeSearchFilter( column.dataKey ) } />
+                            <input onChange = { onChangeSearchFilter( column.dataKey ) } />
                         </div>
-                        <div className='label' onClick = { this.orderData( column.dataKey ) } >
+                        <div className='label' onClick = { orderData( column.dataKey ) } >
                             { column.label }
                         </div>
                     </div> 
@@ -143,11 +124,11 @@ class ReactVirtualizedSearchTable extends React.Component {
         )
     }
 
-    renderHeaderRow = (params) => {
+    const renderHeaderRow = (params) => {
 
-        const columns = this.headerColumnMaker( params )
+        const newColumns = headerColumnMaker( params )
 
-        params.columns = columns
+        params.columns = newColumns
         delete params.style.paddingRight
         delete params.style.height
         delete params.className
@@ -156,22 +137,21 @@ class ReactVirtualizedSearchTable extends React.Component {
             <React.Fragment >
                 <SortableHeaderRowRenderer
                     {...params}
-                    className = {style.headerRow + (this.props.headerClassName? (' ' + this.props.headerClassName): '' )  }
+                    className = {style.headerRow + (props.headerClassName? (' ' + props.headerClassName): '' )  }
                     axis      = "x"
                     lockAxis  = "x"
-                    onSortEnd = {this.onSortEnd}
+                    onSortEnd = {onSortEnd}
                     distance  = {1} 
                 />
             </React.Fragment>
         )
     }
-  
 
-    rowColumnMaker = (props) => {
+    const rowColumnMaker = (props) => {
         const data  = props.rowData
         return (
             props.columns.map( (d, idx) => {
-                const column = this.state.columns[ idx ]
+                const column = columns[ idx ]
 
                 let newProps = Object.assign( {}, d.props )
 
@@ -187,75 +167,71 @@ class ReactVirtualizedSearchTable extends React.Component {
         )
     }
 
-    rowRenderer = (props) => {
-        const columns = this.rowColumnMaker( props )
+    const rowRenderer = (props) => {
+        const columns = rowColumnMaker( props )
         props.columns = columns
         props.className += (' ' + style.tableRow)
 
-        if(this.props.rowClassName){
-            props.className += (' ' + this.props.rowClassName)
+        if(props.rowClassName){
+            props.className += (' ' + props.rowClassName)
         }
 
         return defaultTableRowRenderer(props)
     }
 
-    render() {
+    let widthAverage = false
 
-        const filterdData = this.state.filterdData
+    columns.forEach( d => {
+        if (!d.width) {
+            widthAverage = true
+        }
+    } )
 
-        const columns = this.state.columns
+    const minWidth = columns.length * 80
 
-        let widthAverage = false
-        columns.forEach( d => {
-            if (!d.width) {
-                widthAverage = true
-            }
-        } )
+    return (
+        <div className = { style.main } style = {{ minWidth: minWidth }} >
+            <AutoSizer className = { style.autoSizer } style={ { height: '100%', width: '100%' } } >
+            {({ height, width }) => {
+                return (
+                    <React.Fragment>
+                        { props.title &&
+                            <div className = { typeof props.title === 'object'? '' : style.tableTitle }  >
+                                {props.title}
+                            </div>
+                        } 
+                        <Table
+                            width       = { width - 2 }
+                            height      = { height - 100 }
+                            headerHeight= { 70 }
+                            rowHeight   = { props.rowHeight || 60 }
+                            rowCount    = { filteredData.length }
+                            rowRenderer = { rowRenderer }
+                            rowGetter   = { ({ index }) => filteredData[index] }
+                            headerRowRenderer = { renderHeaderRow }
+                            className   = { style.table + ( props.tableClassName? ` ${props.tableClassName}`: '' ) }
+                            style       = {{
+                                borderRadius: '5px'
+                            }}
+                            onRowClick  = { props.onRowClick }
+                        > 
+                            {   columns.map( (d, idx) => (
+                                <Column
+                                    { ...d } 
+                                    key      = { idx } 
+                                    flexGrow = {1}
+                                    width    = { widthAverage? 100 : (d.width) }
+                                />
+                            ) )}
+                        </Table>
+                    </React.Fragment>
+                )
+            }}
+            </AutoSizer>
+        </div>
+    )
 
-        const minWidth = columns.length * 80
 
-        return (
-            <div className = { style.main } style = {{ minWidth: minWidth }} >
-                <AutoSizer className = { style.autoSizer } style={ { height: '100%', width: '100%' } } >
-                {({ height, width }) => {
-                    return (
-                        <React.Fragment>
-                            { this.props.title &&
-                                <div className = { typeof this.props.title === 'object'? '' : style.tableTitle }  >
-                                    {this.props.title}
-                                </div>
-                            } 
-                            <Table
-                                width       = { width - 2 }
-                                height      = { height - 100 }
-                                headerHeight= { 70 }
-                                rowHeight   = { this.props.rowHeight || 60 }
-                                rowCount    = { filterdData.length }
-                                rowRenderer = { this.rowRenderer }
-                                rowGetter   = { ({ index }) => filterdData[index] }
-                                headerRowRenderer = { this.renderHeaderRow }
-                                className   = { style.table + ( this.props.tableClassName? ` ${this.props.tableClassName}`: '' ) }
-                                style       = {{
-                                    borderRadius: '5px'
-                                }}
-                                onRowClick  = { this.props.onRowClick }
-                            > 
-                                {   columns.map( (d, idx) => (
-                                    <Column
-                                        { ...d } 
-                                        key      = { idx } 
-                                        flexGrow = {1}
-                                        width    = { widthAverage? 100 : (d.width) }
-                                    />
-                                ) )}
-                            </Table>
-                        </React.Fragment>
-                    )
-                }}
-                </AutoSizer>
-            </div>
-        )
-    }
 }
 
 ReactVirtualizedSearchTable.propTypes = {

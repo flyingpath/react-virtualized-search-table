@@ -1,6 +1,7 @@
 {
   "name": "react-virtualized-search-table",
   "version": "1.0.2",
+  "homepage": "https://flyingpath.github.io/react-virtualized-search-table/",
   "private": false,
   "main": "publish/index.js",
   "babel": {
@@ -13,14 +14,14 @@
     ]
   },
   "dependencies": {
-    "array-move": "^2.2.0",
+    "array-move": "^2.2.1",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0",
-    "react-sortable-hoc": "^1.10.1",
-    "react-virtualized": "^9.21.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "react-sortable-hoc": "^1.11.0",
+    "react-virtualized": "^9.21.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,12 +46,12 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.0",
-    "@babel/plugin-proposal-class-properties": "^7.7.0",
-    "@babel/plugin-syntax-class-properties": "^7.2.0",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/preset-react": "^7.7.0",
-    "node-sass": "^4.13.0"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-syntax-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "node-sass": "^4.14.0"
   }
 }

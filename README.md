@@ -5,6 +5,11 @@ Table powered by react-virtualized table with search and sort.
 
 demo: https://flyingpath.github.io/react-virtualized-search-table
 
+```
+npm i react-virtualize-search-table
+```
+
+
 ### Prop Types
 | Property                | Type              | Required? | Description                                                                        |
 | :---------------------- | :---------------- | :-------: | :--------------------------------------------------------------------------------- |

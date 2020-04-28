@@ -1,6 +1,6 @@
 {
   "name": "react-virtualized-search-table",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "homepage": "https://flyingpath.github.io/react-virtualized-search-table/",
   "private": false,
   "main": "publish/index.js",
